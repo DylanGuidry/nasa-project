@@ -19,7 +19,7 @@ function Gallery() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-8">Gallery</h1>
+      <h1 className="text-4xl font-bold mt-10 mb-8">Search For A Photo</h1>
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="relative">
           <input type="text" value={search} onChange={e => setSearch(e.target.value)} className="h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none" placeholder="Search..."/>
@@ -34,7 +34,10 @@ function Gallery() {
         {images.map((image, index) => (
           image.links ? 
           <div key={index} className="p-5 flex flex-col items-center border-2 border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-200 rounded-lg">
-            <img src={image.links[0].href} alt="NASA" className="w-64 h-64 object-cover rounded-t-lg" />
+            {image.links[0].href.endsWith('.mp4') ? 
+              <video src={image.links[0].href} controls className="w-64 h-64 object-cover rounded-t-lg" /> :
+              <img src={image.links[0].href} alt="NASA" className="w-64 h-64 object-cover rounded-t-lg" />
+            }
             <p className="mt-2 text-center p-4">{image.data[0].title}</p>
           </div> 
           : null
