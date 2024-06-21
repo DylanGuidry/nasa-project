@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/homepage';
-import Mavbar from './components/mavbar';
+import Navbar from './components/navbar';
 import Gallery from './pages/gallery';
 
 function App() {
   return (
     <Router>
       <div className="App">
-      <Mavbar />
+      <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/gallery" element={<Gallery />} />
