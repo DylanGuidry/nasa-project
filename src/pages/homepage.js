@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import space from '../images/polar-lights-5858656_1920.jpg';
+import { Link } from 'react-router-dom';
 
 function Homepage() {
   const [data, setData] = useState(null);
@@ -25,8 +26,13 @@ function Homepage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="text-lg font-semibold inline-block mx-1 animate-pulse">
+        🚀 Loading Space Data
+          <span className="inline-block mx-1 animate-pulse">.</span>
+          <span className="inline-block mx-1 animate-pulse delay-150">.</span>
+          <span className="inline-block mx-1 animate-pulse delay-300">.</span>
+        </div>
       </div>
     );
   }
@@ -54,12 +60,14 @@ function Homepage() {
           </div>
         )}
         {marsData && (
+          <Link to="/mars">
           <div className="max-w-md w-full h-full space-y-8 bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-500 ease-in-out mx-4">
-            <h1 className="text-5xl h-40 font-bold mb-4 text-black flex text-center justify-center">Mars Rover Picture</h1>
-            <img className="mx-auto h-64 w-100 object-cover" src={marsData.img_src} alt={marsData.rover.name} />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{marsData.rover.name}</h2>
+            <h1 className="text-5xl font-bold mb-4 flex justify-center text-black">Mars Rover</h1>
+            <img className="mx-auto h-64 w-100 object-cover" src={marsData.img_src} alt={marsData.camera.full_name} />
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{marsData.camera.full_name}</h2>
             <h3 className="mt-2 text-center text-xl text-gray-600">Date: {marsData.earth_date}</h3>
           </div>
+          </Link>
         )}
       </div>
     </div>
