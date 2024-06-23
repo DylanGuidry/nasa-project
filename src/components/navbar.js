@@ -1,22 +1,34 @@
-import React from "react";
-import logo from "../images/NASA-Logo-No-Background.png";
+import React from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import logo from '../images/NASA-Logo-No-Background.png';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Mavbar() {
-    return (
-        <div className="bg-black 00 h-100">
-        <div className="container mx-auto flex justify-between items-center p-4">
-            <div className="flex items-center">
-                <img src={logo} alt="NASA logo" className="h-20 w-20 mr-2"/> {/* Add the logo */}
-                <div className="text-white font-bold text-xl m-3"> Space Project</div>
-            </div>
-            <div>
-            <a href="/" className="text-white p-2 hover:text-gray-300">Home</a> {/* Add hover effect */}
-            <a href="/gallery" className="text-white p-2 hover:text-gray-300">Gallery</a> {/* Add hover effect */}
-            <a href="#" className="text-white p-2 hover:text-gray-300">About</a> {/* Add hover effect */}
-            </div>
-        </div>
-        </div>
-    );
-}
+const Marsvbar = () => {
+  return (
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand href="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+                src={logo}
+                width="40"
+                height="40"
+                className="d-inline-block align-top"
+                alt="NASA logo"
+            /> 
+            <span style={{ marginLeft: '10px' }}>Space Project</span>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/gallery">Gallery</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/marsweather">Mars</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
 
-export default Mavbar;
+export default Marsvbar;

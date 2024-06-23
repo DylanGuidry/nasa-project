@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import space from '../images/polar-lights-5858656_1920.jpg';
+import space2 from '../images/pexels-philippedonn-1169754.jpg';
+import space3 from '../images/pexels-pixabay-73873.jpg';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Homepage() {
   const [data, setData] = useState(null);
@@ -26,52 +29,72 @@ function Homepage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center h-screen">
-        <div className="text-lg font-semibold inline-block mx-1 animate-pulse">
-        🚀 Loading Space Data
-          <span className="inline-block mx-1 animate-pulse">.</span>
-          <span className="inline-block mx-1 animate-pulse delay-150">.</span>
-          <span className="inline-block mx-1 animate-pulse delay-300">.</span>
+      <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+        <div className="text-lg font-weight-bold d-inline-block m-1">
+          🚀 Loading Space Data...
         </div>
       </div>
     );
   }
 
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <img className="m-7 rounded-lg shadow-lg w-11/12 h-64 object-cover object-center " src={space} alt="space" />
-      <div className="flex flex-row items-stretch justify-between px-4 md:px-12 lg:px-24">
-        {data && (
-          <div className="max-w-md w-full h-full space-y-8 bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-500 ease-in-out mx-4">
-            <h1 className="text-5xl font-bold mb-4 text-black">Picture of the Day</h1>
-            <img className="mx-auto h-64 w-100 object-cover" src={data.url} alt={data.title} />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{data.title}</h2>
-            <h3 className="mt-2 text-center text-xl text-gray-600">Date: {data.date}</h3>
-            <p className="mt-2 text-center text-sm text-gray-600">{data.explanation}</p>
+    <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light">
+      <div className="d-flex justify-content-around">
+        <div className="m-5 w-50 d-flex justify-content-center align-items-center" style={{height: '200px'}}>
+          <img className="m-3 rounded shadow-lg" src={space} alt="space" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
+        </div>
+        <div className="m-5 w-50 d-flex justify-content-center align-items-center" style={{height: '200px'}}>
+          <img className="m-3 rounded shadow-lg" src={space2} alt="space" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
+        </div>
+        <div className="m-5 w-50 d-flex justify-content-center align-items-center" style={{height: '200px'}}>
+          <img className="m-3 rounded shadow-lg" src={space3} alt="space" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
+        </div>
+      </div>
+      <div className="d-flex flex-row flex-wrap justify-content-around px-3">
+        {epicData && (
+          <div className="card m-2 position-relative" style={{width: "24rem"}}>
+            <img className="card-img-top" src={`https://api.nasa.gov/EPIC/archive/natural/${epicData.date.slice(0,10).replace(/-/g, '/')}/png/${epicData.image}.png?api_key=${process.env.REACT_APP_SECRET_KEY}`} alt={epicData.caption} style={{ height: '250px', objectFit: 'cover' }} />
+            <div className="card-body text-center"> 
+              <h5 className="card-title">{epicData.caption}</h5>
+              <p className="card-text">{data.explanation}</p>
+              <p className="card-text"><small className="text-muted">Date: {epicData.date}</small></p>
+            </div>
+            <span className="badge bg-dark position-absolute" style={{bottom: '10px', left: '10px'}}>NASA</span>
           </div>
         )}
-        {epicData && (
-          <div className="max-w-md w-full h-full space-y-8 bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-500 ease-in-out mx-4">
-            <h1 className="text-5xl h-40 font-bold mb-4 text-black flex justify-center">EPIC Picture</h1>
-            <img className="mx-auto h-64 w-100 object-cover" src={`https://api.nasa.gov/EPIC/archive/natural/${epicData.date.slice(0,10).replace(/-/g, '/')}/png/${epicData.image}.png?api_key=${process.env.REACT_APP_SECRET_KEY}`} alt={epicData.caption} />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{epicData.caption}</h2>
-            <h3 className="mt-2 text-center text-xl text-gray-600">Date: {epicData.date}</h3>
+        {data && (
+          <div className="card m-2 position-relative" style={{ width: "24rem" }}>
+            <img className="card-img-top" src={data.url} alt={data.title} style={{ objectFit: 'cover', height: '250px' }} />
+            <div className="card-body text-center">
+            <h1>Photo of the Day</h1>
+              <h5 className="card-title">{data.title}</h5>
+              <p className="card-text">{data.explanation}</p>
+              <p className="card-text"><small className="text-muted">Date: {data.date}</small></p>
+            </div>
+            <span className="badge bg-dark position-absolute" style={{bottom: '10px', left: '10px'}}>NASA</span>
           </div>
         )}
         {marsData && (
-          <Link to="/mars">
-          <div className="max-w-md w-full h-full space-y-8 bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-500 ease-in-out mx-4">
-            <h1 className="text-5xl font-bold mb-4 flex justify-center text-black">Mars Rover</h1>
-            <img className="mx-auto h-64 w-100 object-cover" src={marsData.img_src} alt={marsData.camera.full_name} />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{marsData.camera.full_name}</h2>
-            <h3 className="mt-2 text-center text-xl text-gray-600">Date: {marsData.earth_date}</h3>
-          </div>
+          <Link to="/mars" className="card m-2 position-relative" style={{width: "24rem"}}>
+            <img className="card-img-top" src={marsData.img_src} alt={marsData.camera.full_name} style={{ height: '250px', objectFit: 'cover' }} />
+            <div className="card-body text-center"> 
+              <h1>Mars Rover Photos</h1>
+              <h5 className="card-title">{marsData.camera.full_name}</h5>
+              <p className="card-text">{data.explanation}</p>
+              <p className="card-text"><small className="text-muted">Date: {marsData.earth_date}</small></p>
+            </div>
+            <span className="badge bg-dark position-absolute" style={{bottom: '10px', left: '10px'}}>NASA</span>
           </Link>
         )}
+        <div className="nasa-history mt-5 text-center" style={{ maxWidth: "600px", margin: "0 auto" }}>
+          <h2>About NASA</h2>
+          <p>
+            The National Aeronautics and Space Administration (NASA) was established in 1958 in response to the Soviet Union's Sputnik launch, marking the start of the space race. NASA's mission is to pioneer the future in space exploration, scientific discovery, and aeronautics research. Over the decades, NASA has conducted numerous missions that have expanded our understanding of the universe, our solar system, and our own planet. These missions include sending astronauts to the Moon, exploring the surface of Mars, studying Earth's climate, and looking deep into the universe with telescopes like Hubble. NASA continues to push the boundaries of what is possible, aiming to send humans to Mars and beyond in the coming years, fostering a new era of discovery and exploration.
+          </p>
+        </div>
       </div>
     </div>
-  );
+);
 }
 
 export default Homepage;
