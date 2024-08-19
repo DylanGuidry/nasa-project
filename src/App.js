@@ -7,6 +7,7 @@ import Mars from './pages/mars';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/footer';
 import MWeather from './pages/marsweather';
+import About from './pages/about';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/mars" element={<Mars />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/marsweather" element={<MWeather />} />
+          <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
       </div>
